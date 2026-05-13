@@ -1,6 +1,25 @@
 services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: gbs
+      MONGO_INITDB_ROOT_PASSWORD: geheim
+    volumes:
+      - mongodb_data:/data/db
+
   webapi:
     build:
       context: ./WebApi
     ports:
       - "5001:5001"
+    environment:
+      DatabaseSettings__ConnectionString: "mongodb://gbs:geheim@mongodb:27017"
+    depends_on:
+      - mongodb
+
+volumes:
+  mongodb_data:

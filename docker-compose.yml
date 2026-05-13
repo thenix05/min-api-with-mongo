@@ -1,0 +1,6 @@
+services:
+  webapi:
+    build:
+      context: ./WebApi
+    ports:
+      - "5001:5001"
